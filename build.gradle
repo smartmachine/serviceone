@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+plugins {
+    id "org.springframework.boot" version "1.5.4.RELEASE"
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+version = '0.1.0'
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+docker {
+    baseImage "cluster.kube.com:30500/oracle-jre:8.131"
+    maintainer 'Conrad Christensen "conrad.christensen@gmail.com"'
+    registry 'cluster.kube.com:30500'
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-actuator-docs')
+    compile('org.springframework.boot:spring-boot-starter-hateoas')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
